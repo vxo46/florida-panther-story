@@ -1,8 +1,8 @@
 body {
     margin: 0;
     font-family: Georgia, serif;
-    background: #111;
-    color: #eee;
+    background: #f4f4f4;
+    color: #222;
 }
 
 /* HERO */
@@ -10,71 +10,103 @@ body {
     position: relative;
     height: 100vh;
 }
+
 .hero img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(55%);
 }
+
+/* Soft overlay so text is readable but image stays bright */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+}
+
 .hero-text {
     position: absolute;
     bottom: 20%;
     left: 10%;
     max-width: 600px;
+    color: white;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
 /* INTRO */
 .intro {
     padding: 80px 10%;
-    background: #161616;
+    background: white;
 }
 
-/* SCROLL */
+/* SCROLL MAP */
 .scrolly {
     display: flex;
 }
+
 .sticky {
     position: sticky;
     top: 0;
     width: 60%;
     height: 100vh;
+    background: #fafafa;
 }
+
 #map {
     width: 100%;
     height: 100%;
 }
+
 .steps {
     width: 40%;
     padding: 100px 40px;
 }
+
 .step {
     margin-bottom: 300px;
     font-size: 1.2rem;
 }
 
-/* ROAD */
+/* ROAD SECTION */
 .road {
     position: relative;
     height: 80vh;
 }
+
 .road img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(55%);
 }
+
+.road::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+}
+
 .road-text {
     position: absolute;
     bottom: 15%;
     left: 10%;
     max-width: 600px;
+    color: white;
+    z-index: 2;
 }
 
 /* CHART */
 .chart-section {
     padding: 80px 10%;
-    background: #161616;
+    background: white;
 }
+
 #chart {
     width: 100%;
     height: 400px;
@@ -83,4 +115,5 @@ body {
 footer {
     text-align: center;
     padding: 40px;
+    background: #eee;
 }
