@@ -1,3 +1,51 @@
+/* MAP */
+
+const mapWidth = document.querySelector(".sticky").clientWidth;
+const mapHeight = document.querySelector(".sticky").clientHeight;
+
+const mapSvg = d3.select("#map")
+  .attr("width", mapWidth)
+  .attr("height", mapHeight);
+
+const projection = d3.geoMercator();
+const pathMap = d3.geoPath().projection(projection);
+
+d3.json("florida.geo.json").then(data => {
+
+  projection.fitSize([mapWidth, mapHeight], data);
+
+  const base = mapSvg.append("path")
+    .datum(data)
+    .attr("d", pathMap)
+    .attr("fill", "#ddd")
+    .attr("stroke", "#333");
+
+  const overlay = mapSvg.append("path")
+    .datum(data)
+    .attr("d", pathMap)
+    .attr("fill", "#ffb74d")
+    .attr("opacity", 0.7);
+
+  const colors = ["#ffe082","#ffb74d","#ff9800","#ef6c00"];
+
+  const scroller = scrollama();
+
+  scroller
+    .setup({
+      step: ".step",
+      offset: 0.6
+    })
+    .onStepEnter(response => {
+      overlay
+        .transition()
+        .duration(600)
+        .attr("fill", colors[response.index]);
+    });
+});
+
+
+/* CHART */
+
 d3.csv("population.csv").then(data => {
 
   data.forEach(d => {
