@@ -1,86 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>The Last Territory | Florida Panther</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet" href="styles.css">
-
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://unpkg.com/scrollama"></script>
-</head>
-
-<body>
-
-<!-- HERO -->
-<section class="hero">
-    <img src="images/NationalGeographic_panther1.jpg" alt="Florida Panther">
-    <div class="hero-text">
-        <h1>The Last Territory</h1>
-        <p>How highways and development reshaped the Florida panther’s survival.</p>
-    </div>
-</section>
-
-<!-- INTRO -->
-<section class="intro">
-    <h2>A Species Reduced to Space</h2>
-    <p>
-        Once roaming across the southeastern United States, the Florida panther’s range 
-        contracted steadily through the twentieth century.
-    </p>
-</section>
-
-<!-- MAP SECTION -->
-<section class="scrolly">
-    <div class="sticky">
-        <svg id="map"></svg>
-    </div>
-
-    <div class="steps">
-        <div class="step">Historic Range</div>
-        <div class="step">Range Contraction</div>
-        <div class="step">Fragmentation</div>
-        <div class="step">Present Core Habitat</div>
-    </div>
-</section>
-
-<!-- ROAD IMAGE -->
-<section class="road">
-    <img src="images/NatureConservancy_panther2.jpg" alt="Panther crossing highway">
-    <div class="road-text">
-        <h2>Highways as Barriers</h2>
-        <p>
-            Vehicle collisions are now the leading documented cause of panther mortality.
-        </p>
-    </div>
-</section>
-
-<!-- POPULATION CHART -->
 <section class="chart-section">
-    <h2>From Collapse to Fragile Recovery</h2>
 
-    <div class="chart-scrolly">
-        <svg id="chart"></svg>
+  <h2 class="chart-title">From Collapse to Fragile Recovery</h2>
 
-        <div class="chart-steps">
-            <div class="chart-step">1970s: Near Extinction</div>
-            <div class="chart-step">1995: Genetic Rescue</div>
-            <div class="chart-step">2000s: Steady Recovery</div>
-            <div class="chart-step">Today: Fragile Stabilization</div>
-        </div>
+  <div class="chart-container">
+
+    <div class="chart-sticky">
+      <svg id="chart"></svg>
     </div>
 
-    <p class="data-note">
-        Data source: Florida Fish and Wildlife Conservation Commission population estimates (1973–2022).
-    </p>
+    <div class="chart-text">
+
+      <div class="chart-step" data-step="0">
+        <h3>1970s: Near Extinction</h3>
+        <p>Population estimates suggest only 20–30 panthers remained in the wild.</p>
+      </div>
+
+      <div class="chart-step" data-step="1">
+        <h3>1995: Genetic Rescue</h3>
+        <p>Texas cougars were introduced to increase genetic diversity.</p>
+      </div>
+
+      <div class="chart-step" data-step="2">
+        <h3>2000s: Recovery</h3>
+        <p>Population estimates began steadily rising across South Florida.</p>
+      </div>
+
+      <div class="chart-step" data-step="3">
+        <h3>Today: Fragile Stability</h3>
+        <p>Modern estimates range between 120–230 panthers, though habitat remains limited.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <p class="data-note">
+    Source: Florida Fish and Wildlife Conservation Commission population estimates.
+  </p>
+
 </section>
-
-<footer>
-    Florida Panther Conservation Story
-</footer>
-
-<script src="script.js"></script>
-
-</body>
-</html>
