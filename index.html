@@ -1,148 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>The Last Territory</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>The Last Territory | Florida Panther</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+<link rel="stylesheet" href="styles.css">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Georgia, serif;
-      background: #f4f1eb;
-      color: #1c1c1c;
-    }
-
-    section {
-      padding: 100px 10%;
-    }
-
-    .hero {
-      background: #111;
-      color: white;
-      height: 80vh;
-      display: flex;
-      align-items: center;
-    }
-
-    .hero h1 {
-      font-size: 60px;
-      margin-bottom: 20px;
-    }
-
-    .map-container {
-      display: flex;
-      justify-content: center;
-    }
-
-    svg {
-      width: 80%;
-      height: 500px;
-    }
-
-    h2 {
-      margin-bottom: 40px;
-    }
-  </style>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/scrollama"></script>
 </head>
 
 <body>
 
+<!-- HERO -->
 <section class="hero">
-  <div>
+  <img src="images/NationalGeographic_panther1.jpg" alt="Florida Panther">
+  <div class="hero-text">
     <h1>The Last Territory</h1>
-    <p>How highways reshaped the survival of the Florida panther.</p>
+    <p>How development reshaped the Florida panther’s survival.</p>
   </div>
 </section>
 
-<section>
-  <h2>Last Refuge</h2>
-  <div class="map-container">
-    <svg id="floridaMap"></svg>
+<!-- MAP STORY -->
+<section class="scrolly">
+
+  <div class="sticky">
+    <svg id="map"></svg>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <h2>Historic Range</h2>
+      <p>Panthers once roamed across the southeastern United States.</p>
+    </div>
+
+    <div class="step">
+      <h2>Range Contraction</h2>
+      <p>By the 1970s, the population collapsed into South Florida.</p>
+    </div>
+
+    <div class="step">
+      <h2>Urban Expansion</h2>
+      <p>Highways and development fragmented habitat.</p>
+    </div>
+
+    <div class="step">
+      <h2>Last Refuge</h2>
+      <p>Today, most panthers survive in a narrow core of Southwest Florida.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ROAD IMAGE -->
+<section class="road">
+  <img src="images/NatureConservancy_panther2.jpg" alt="Panther crossing highway">
+  <div class="road-text">
+    <h2>Highways as Barriers</h2>
+    <p>Vehicle collisions are a leading cause of panther mortality.</p>
   </div>
 </section>
 
-<section>
-  <h2>Road Mortality Over Time</h2>
-  <svg id="lineGraph"></svg>
-</section>
+<footer>
+  Florida Panther Conservation Story
+</footer>
 
-<script>
-
-///////////////////////////
-// FLORIDA MAP
-///////////////////////////
-
-d3.json("florida.geo.json").then(data => {
-
-  const svg = d3.select("#floridaMap");
-  const width = svg.node().clientWidth;
-  const height = svg.node().clientHeight;
-
-  const projection = d3.geoMercator()
-    .fitSize([width, height], data);
-
-  const path = d3.geoPath().projection(projection);
-
-  svg.selectAll("path")
-    .data(data.features)
-    .enter()
-    .append("path")
-    .attr("d", path)
-    .attr("fill", "#e6dccb")
-    .attr("stroke", "#999");
-
-});
-
-
-///////////////////////////
-// LINE GRAPH
-///////////////////////////
-
-const mortalityData = [
-  {year: 2002, deaths: 12},
-  {year: 2005, deaths: 20},
-  {year: 2010, deaths: 23},
-  {year: 2016, deaths: 32},
-  {year: 2022, deaths: 27}
-];
-
-const svg = d3.select("#lineGraph");
-const width = svg.node().clientWidth;
-const height = 500;
-
-svg.attr("height", height);
-
-const x = d3.scaleLinear()
-  .domain(d3.extent(mortalityData, d => d.year))
-  .range([60, width - 40]);
-
-const y = d3.scaleLinear()
-  .domain([0, d3.max(mortalityData, d => d.deaths)])
-  .range([height - 60, 40]);
-
-svg.append("g")
-  .attr("transform", `translate(0, ${height - 60})`)
-  .call(d3.axisBottom(x).tickFormat(d3.format("d")));
-
-svg.append("g")
-  .attr("transform", "translate(60,0)")
-  .call(d3.axisLeft(y));
-
-const line = d3.line()
-  .x(d => x(d.year))
-  .y(d => y(d.deaths));
-
-svg.append("path")
-  .datum(mortalityData)
-  .attr("fill", "none")
-  .attr("stroke", "#c62828")
-  .attr("stroke-width", 4)
-  .attr("d", line);
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
