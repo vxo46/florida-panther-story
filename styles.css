@@ -1,3 +1,102 @@
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: #f4f4f4;
+  color: #222;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 100vh;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+}
+
+.hero-text {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  color: white;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 3rem;
+}
+
+/* INTRO */
+.intro {
+  padding: 80px 10%;
+  background: white;
+}
+
+/* MAP */
+.scrolly {
+  display: flex;
+}
+
+.sticky {
+  position: sticky;
+  top: 100px;
+  width: 60%;
+  height: 80vh;
+  background: #fafafa;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.steps {
+  width: 40%;
+  padding: 100px 40px;
+}
+
+.step {
+  margin-bottom: 300px;
+}
+
+/* ROAD */
+.road {
+  position: relative;
+  height: 80vh;
+}
+
+.road img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.road::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+}
+
+.road-text {
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+  color: white;
+  z-index: 2;
+}
+
+/* CHART */
 .chart-section {
   background: #ffffff;
   padding: 120px 0;
@@ -43,6 +142,17 @@
   opacity: 1;
 }
 
-.chart-step h3 {
-  margin-bottom: 12px;
+.data-note {
+  font-size: 0.9rem;
+  margin-top: 40px;
+  opacity: 0.7;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer {
+  padding: 40px;
+  text-align: center;
+  background: #eee;
 }
