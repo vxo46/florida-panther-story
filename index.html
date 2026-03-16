@@ -2,55 +2,93 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Florida Panther Survival</title>
-
+<title>The Last Territory | Florida Panther</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://unpkg.com/scrollama"></script>
-
 <link rel="stylesheet" href="styles.css">
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
 <body>
 
+<!-- HERO -->
 <section class="hero">
-  <img src="panther.jpg" alt="Florida Panther">
-  <h1>Mapping the Survival of the Florida Panther</h1>
+    <img src="images/NationalGeographic_panther1.jpg" alt="Florida Panther">
+    <div class="hero-text">
+        <h1>The Last Territory</h1>
+        <p>
+            How highways, development, and habitat loss reshaped the Florida panther’s survival.
+        </p>
+    </div>
 </section>
 
-<main class="container">
+<!-- CONTEXT -->
+<section class="content">
+    <h2>A Species Reduced to Space</h2>
+    <p>
+        Once roaming across the southeastern United States, the Florida panther’s historic range 
+        stretched from Texas to the Carolinas. By the mid-20th century, unregulated hunting, 
+        agricultural clearing, and rapid urban development reduced the population to fewer than 30 individuals.
+    </p>
+    <p>
+        The collapse was not merely biological — it was geographic. Highways fragmented habitat. 
+        Subdivisions replaced wetlands. The panther’s territory shrank southward into isolated 
+        pockets of Southwest Florida.
+    </p>
+</section>
 
-<div class="scrolly">
+<!-- MAP SECTION -->
+<section class="map-section">
+    <h2>Shrinking Range, Fragmented Habitat</h2>
+    <p>
+        Scroll to see how the panther’s territory contracted from a regional presence 
+        to a narrow stronghold in South Florida.
+    </p>
 
-  <div class="sticky">
-    <div id="heatmap"></div>
-  </div>
+    <div id="map"></div>
+</section>
 
-  <div class="steps">
-
-    <div class="step" data-year="1975">
-      <p>In the 1970s, fewer than 30 panthers remained in Florida.</p>
+<!-- ROAD SECTION -->
+<section class="road">
+    <img src="images/NatureConservancy_panther2.jpg" alt="Panther crossing highway">
+    <div class="road-text">
+        <h2>Highways as Barriers</h2>
+        <p>
+            As suburban development expanded north of Naples and Fort Myers, 
+            road networks increasingly cut across panther habitat. 
+            Vehicle collisions have become the leading documented cause 
+            of panther mortality in recent decades.
+        </p>
+        <p>
+            Wildlife underpasses along I-75 have reduced deaths, but 
+            connectivity remains fragile. Without expanded corridors, 
+            population growth stalls at geographic limits.
+        </p>
     </div>
+</section>
 
-    <div class="step" data-year="1995">
-      <p>Conservation efforts began to stabilize the population.</p>
-    </div>
+<!-- POPULATION -->
+<section class="chart-section">
+    <h2>From Collapse to Fragile Recovery</h2>
+    <p>
+        In 1995, eight female Texas cougars were introduced to prevent genetic collapse. 
+        The intervention succeeded. Population estimates climbed steadily.
+        Yet recovery remains geographically constrained.
+    </p>
 
-    <div class="step" data-year="2010">
-      <p>Vehicle collisions increased as development expanded.</p>
-    </div>
+    <div id="chart"></div>
+</section>
 
-    <div class="step" data-year="2020">
-      <p>Today, panthers survive mostly in fragmented South Florida habitat.</p>
-    </div>
-
-  </div>
-
-</div>
-
-</main>
+<!-- FOOTER -->
+<footer>
+    <p>
+        Data Sources: Florida Fish and Wildlife Conservation Commission (FWC), 
+        U.S. Fish & Wildlife Service (USFWS)
+    </p>
+</footer>
 
 <script src="script.js"></script>
+
 </body>
 </html>
