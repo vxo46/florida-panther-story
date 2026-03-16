@@ -1,133 +1,48 @@
-body {
-    margin: 0;
-    font-family: Georgia, serif;
-    background: #f4f4f4;
-    color: #222;
-}
-
-/* HERO */
-.hero {
-    position: relative;
-    height: 100vh;
-}
-
-.hero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
-}
-
-.hero-text {
-    position: absolute;
-    bottom: 20%;
-    left: 10%;
-    color: white;
-    z-index: 2;
-}
-
-.hero h1 {
-    font-size: 3rem;
-}
-
-/* INTRO */
-.intro {
-    padding: 80px 10%;
-    background: white;
-}
-
-/* MAP */
-.scrolly {
-    display: flex;
-}
-
-.sticky {
-    position: sticky;
-    top: 0;
-    width: 60%;
-    height: 100vh;
-    background: #fafafa;
-}
-
-#map {
-    width: 100%;
-    height: 100%;
-}
-
-.steps {
-    width: 40%;
-    padding: 100px 40px;
-}
-
-.step {
-    margin-bottom: 250px;
-}
-
-/* ROAD */
-.road {
-    position: relative;
-    height: 80vh;
-}
-
-.road img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.road::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
-}
-
-.road-text {
-    position: absolute;
-    bottom: 15%;
-    left: 10%;
-    color: white;
-    z-index: 2;
-}
-
-/* CHART */
 .chart-section {
-    padding: 80px 10%;
-    background: white;
+  background: #ffffff;
+  padding: 120px 0;
 }
 
-.chart-scrolly {
-    display: flex;
+.chart-title {
+  max-width: 1100px;
+  margin: 0 auto 60px auto;
+  padding-left: 40px;
+  font-size: 2rem;
+}
+
+.chart-container {
+  display: flex;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.chart-sticky {
+  position: sticky;
+  top: 120px;
+  height: 75vh;
+  width: 55%;
 }
 
 #chart {
-    width: 60%;
-    height: 500px;
+  width: 100%;
+  height: 100%;
 }
 
-.chart-steps {
-    width: 40%;
-    padding: 100px 40px;
+.chart-text {
+  width: 45%;
+  padding-left: 60px;
 }
 
 .chart-step {
-    margin-bottom: 250px;
+  margin-bottom: 450px;
+  opacity: 0.25;
+  transition: opacity 0.4s ease;
 }
 
-.data-note {
-    font-size: 0.9rem;
-    margin-top: 20px;
-    opacity: 0.7;
+.chart-step.active {
+  opacity: 1;
 }
 
-footer {
-    padding: 40px;
-    text-align: center;
-    background: #eee;
+.chart-step h3 {
+  margin-bottom: 12px;
 }
