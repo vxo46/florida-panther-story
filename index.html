@@ -1,145 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>The Last Territory — Florida Panther</title>
+  <meta charset="UTF-8">
+  <title>The Last Territory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- D3 -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
 
-  <!-- Scrollama -->
-  <script src="https://unpkg.com/scrollama"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Georgia, serif;
+      background: #f4f1eb;
+      color: #1c1c1c;
+    }
 
-  <link rel="stylesheet" href="styles.css" />
+    section {
+      padding: 100px 10%;
+    }
+
+    .hero {
+      background: #111;
+      color: white;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+
+    .map-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    svg {
+      width: 80%;
+      height: 500px;
+    }
+
+    h2 {
+      margin-bottom: 40px;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ================= HERO ================= -->
-
 <section class="hero">
-  <div class="hero-overlay">
+  <div>
     <h1>The Last Territory</h1>
-    <p>
-      How highways and development reshaped the survival of the Florida panther.
-    </p>
+    <p>How highways reshaped the survival of the Florida panther.</p>
   </div>
 </section>
 
-<!-- ================= INTRO ================= -->
-
-<section class="intro">
-  <p>
-    Once found throughout the southeastern United States, the Florida panther’s range extended
-    across millions of acres of forest and wetland. By the mid-20th century, hunting and rapid
-    urban expansion reduced the population to fewer than 30 individuals.
-  </p>
-
-  <p>
-    Conservation efforts helped increase population numbers, but road mortality remains one of
-    the leading documented causes of death. The data below shows how mortality and recovery
-    have changed over time.
-  </p>
+<section>
+  <h2>Last Refuge</h2>
+  <div class="map-container">
+    <svg id="floridaMap"></svg>
+  </div>
 </section>
 
-<!-- ================= MORTALITY GRAPH ================= -->
-
-<section class="chart-section">
-
+<section>
   <h2>Road Mortality Over Time</h2>
-
-  <div class="chart-container">
-
-    <div class="chart-sticky">
-      <svg id="mortalityChart"></svg>
-    </div>
-
-    <div class="chart-text">
-
-      <div class="mortality-step">
-        <h3>2002</h3>
-        <p>12 documented road mortalities.</p>
-      </div>
-
-      <div class="mortality-step">
-        <h3>2005</h3>
-        <p>20 documented road mortalities.</p>
-      </div>
-
-      <div class="mortality-step">
-        <h3>2010</h3>
-        <p>23 documented road mortalities.</p>
-      </div>
-
-      <div class="mortality-step">
-        <h3>2016</h3>
-        <p>32 documented road mortalities.</p>
-      </div>
-
-      <div class="mortality-step">
-        <h3>2022</h3>
-        <p>27 documented road mortalities.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <p class="data-note">
-    Source: Florida Fish and Wildlife Conservation Commission (FWC) Annual Panther Mortality Reports.
-  </p>
-
+  <svg id="lineGraph"></svg>
 </section>
 
-<!-- ================= POPULATION GRAPH ================= -->
+<script>
 
-<section class="chart-section">
+///////////////////////////
+// FLORIDA MAP
+///////////////////////////
 
-  <h2>Population Recovery</h2>
+d3.json("florida.geo.json").then(data => {
 
-  <div class="chart-container">
+  const svg = d3.select("#floridaMap");
+  const width = svg.node().clientWidth;
+  const height = svg.node().clientHeight;
 
-    <div class="chart-sticky">
-      <svg id="populationChart"></svg>
-    </div>
+  const projection = d3.geoMercator()
+    .fitSize([width, height], data);
 
-    <div class="chart-text">
+  const path = d3.geoPath().projection(projection);
 
-      <div class="population-step">
-        <h3>1970s — Near Extinction</h3>
-        <p>Estimated 20–30 panthers remained.</p>
-      </div>
+  svg.selectAll("path")
+    .data(data.features)
+    .enter()
+    .append("path")
+    .attr("d", path)
+    .attr("fill", "#e6dccb")
+    .attr("stroke", "#999");
 
-      <div class="population-step">
-        <h3>1995 — Genetic Rescue</h3>
-        <p>Texas cougars were introduced to increase genetic diversity.</p>
-      </div>
+});
 
-      <div class="population-step">
-        <h3>2000s — Recovery Begins</h3>
-        <p>Population estimates began steadily rising.</p>
-      </div>
 
-      <div class="population-step">
-        <h3>Today — Fragile Stability</h3>
-        <p>Modern estimates range between 120–230 panthers.</p>
-      </div>
+///////////////////////////
+// LINE GRAPH
+///////////////////////////
 
-    </div>
+const mortalityData = [
+  {year: 2002, deaths: 12},
+  {year: 2005, deaths: 20},
+  {year: 2010, deaths: 23},
+  {year: 2016, deaths: 32},
+  {year: 2022, deaths: 27}
+];
 
-  </div>
+const svg = d3.select("#lineGraph");
+const width = svg.node().clientWidth;
+const height = 500;
 
-  <p class="data-note">
-    Source: FWC Florida Panther Population Estimates.
-  </p>
+svg.attr("height", height);
 
-</section>
+const x = d3.scaleLinear()
+  .domain(d3.extent(mortalityData, d => d.year))
+  .range([60, width - 40]);
 
-<!-- ================= SCRIPT ================= -->
+const y = d3.scaleLinear()
+  .domain([0, d3.max(mortalityData, d => d.deaths)])
+  .range([height - 60, 40]);
 
-<script src="script.js"></script>
+svg.append("g")
+  .attr("transform", `translate(0, ${height - 60})`)
+  .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+
+svg.append("g")
+  .attr("transform", "translate(60,0)")
+  .call(d3.axisLeft(y));
+
+const line = d3.line()
+  .x(d => x(d.year))
+  .y(d => y(d.deaths));
+
+svg.append("path")
+  .datum(mortalityData)
+  .attr("fill", "none")
+  .attr("stroke", "#c62828")
+  .attr("stroke-width", 4)
+  .attr("d", line);
+
+</script>
 
 </body>
 </html>
