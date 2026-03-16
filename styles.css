@@ -1,72 +1,97 @@
 body {
-  margin: 0;
-  font-family: Georgia, serif;
-  background: white;
-  color: #111;
+    margin: 0;
+    font-family: Georgia, serif;
+    background: #111;
+    color: #eee;
+    line-height: 1.7;
 }
 
+/* HERO */
 .hero {
-  position: relative;
-  height: 80vh;
-  overflow: hidden;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(70%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(55%);
+}
+
+.hero-text {
+    position: absolute;
+    bottom: 20%;
+    left: 10%;
+    max-width: 600px;
 }
 
 .hero h1 {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-  color: white;
-  font-size: 48px;
-  max-width: 800px;
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 60px 20px;
+.hero p {
+    font-size: 1.2rem;
 }
 
-.scrolly {
-  display: flex;
+/* CONTENT */
+.content {
+    padding: 80px 10%;
+    background: #161616;
 }
 
-.sticky {
-  position: sticky;
-  top: 0;
-  width: 60%;
-  height: 100vh;
+.content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
-.steps {
-  width: 40%;
-  padding-left: 40px;
+/* MAP */
+.map-section {
+    padding: 80px 10%;
+    background: #111;
 }
 
-.step {
-  margin-bottom: 200px;
-  font-size: 20px;
-  line-height: 1.6;
+#map {
+    height: 500px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .scrolly {
-    flex-direction: column;
-  }
+/* ROAD */
+.road {
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+}
 
-  .sticky,
-  .steps {
+.road img {
     width: 100%;
-  }
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(50%);
+}
 
-  .hero h1 {
-    font-size: 28px;
-  }
+.road-text {
+    position: absolute;
+    bottom: 15%;
+    left: 10%;
+    max-width: 600px;
+}
+
+/* CHART */
+.chart-section {
+    padding: 80px 10%;
+    background: #161616;
+}
+
+#chart {
+    height: 400px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px;
+    background: #000;
+    font-size: 0.9rem;
 }
