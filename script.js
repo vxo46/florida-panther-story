@@ -1,75 +1,88 @@
-/* ======================
-   POPULATION CHART
-====================== */
+const mapWidth = document.querySelector(".sticky").clientWidth;
+const mapHeight = document.querySelector(".sticky").clientHeight;
 
-d3.csv("population.csv").then(data => {
+const mapSvg = d3.select("#map")
+  .attr("width", mapWidth)
+  .attr("height", mapHeight);
 
-  data.forEach(d => {
-    d.year = +d.year;
-    d.population = +d.population;
-  });
+const projection = d3.geoMercator();
+const path = d3.geoPath().projection(projection);
 
-  const width = document.querySelector(".chart-sticky").clientWidth;
-  const height = document.querySelector(".chart-sticky").clientHeight;
+d3.json("florida.geo.json").then(data => {
 
-  const svg = d3.select("#chart")
-    .attr("width", width)
-    .attr("height", height);
+  projection.fitSize([mapWidth, mapHeight], data);
 
-  const x = d3.scaleLinear()
-      .domain(d3.extent(data, d => d.year))
-      .range([70, width - 40]);
+  // Base Florida
+  mapSvg.append("path")
+    .datum(data)
+    .attr("d", path)
+    .attr("fill", "#eeeeee")
+    .attr("stroke", "#999");
 
-  const y = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.population) + 20])
-      .range([height - 60, 40]);
+  // Historic Habitat (whole state glow)
+  const historic = mapSvg.append("path")
+    .datum(data)
+    .attr("d", path)
+    .attr("fill", "#ffcc80")
+    .attr("opacity", 0);
 
-  svg.append("g")
-    .attr("transform", `translate(0, ${height - 60})`)
-    .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+  // Core Habitat (South Florida area)
+  const core = mapSvg.append("ellipse")
+    .attr("cx", mapWidth * 0.65)
+    .attr("cy", mapHeight * 0.7)
+    .attr("rx", mapWidth * 0.18)
+    .attr("ry", mapHeight * 0.15)
+    .attr("fill", "#ef6c00")
+    .attr("opacity", 0);
 
-  svg.append("g")
-    .attr("transform", "translate(70,0)")
-    .call(d3.axisLeft(y));
+  // Urban Expansion
+  const urban = mapSvg.append("rect")
+    .attr("x", mapWidth * 0.55)
+    .attr("y", mapHeight * 0.6)
+    .attr("width", mapWidth * 0.3)
+    .attr("height", mapHeight * 0.25)
+    .attr("fill", "#444")
+    .attr("opacity", 0);
 
-  const line = d3.line()
-    .x(d => x(d.year))
-    .y(d => y(d.population));
+  // Heat Glow
+  const heat = mapSvg.append("circle")
+    .attr("cx", mapWidth * 0.65)
+    .attr("cy", mapHeight * 0.72)
+    .attr("r", 0)
+    .attr("fill", "red")
+    .attr("opacity", 0.4);
 
-  const path = svg.append("path")
-    .datum([])
-    .attr("fill", "none")
-    .attr("stroke", "#e65100")
-    .attr("stroke-width", 4);
+  const scroller = scrollama();
 
-  const chartScroller = scrollama();
-
-  chartScroller
+  scroller
     .setup({
-      step: ".chart-step",
+      step: ".step",
       offset: 0.6
     })
     .onStepEnter(response => {
 
-      d3.selectAll(".chart-step").classed("active", false);
+      d3.selectAll(".step").classed("active", false);
       d3.select(response.element).classed("active", true);
 
-      let visibleData;
-
       if (response.index === 0) {
-        visibleData = data.slice(0,1);
-      } else if (response.index === 1) {
-        visibleData = data.slice(0,2);
-      } else if (response.index === 2) {
-        visibleData = data.slice(0,4);
-      } else {
-        visibleData = data;
+        historic.transition().duration(800).attr("opacity", 0.6);
+        core.transition().duration(600).attr("opacity", 0);
+        urban.transition().duration(600).attr("opacity", 0);
+        heat.transition().duration(600).attr("r", 0);
       }
 
-      path
-        .datum(visibleData)
-        .transition()
-        .duration(600)
-        .attr("d", line);
+      if (response.index === 1) {
+        historic.transition().duration(800).attr("opacity", 0.2);
+        core.transition().duration(800).attr("opacity", 0.8);
+      }
+
+      if (response.index === 2) {
+        urban.transition().duration(800).attr("opacity", 0.6);
+      }
+
+      if (response.index === 3) {
+        heat.transition().duration(800).attr("r", 90);
+      }
+
     });
 });
