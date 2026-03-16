@@ -1,93 +1,53 @@
-/* RESET */
-body {
-  margin: 0;
-  font-family: Georgia, serif;
-  background: #f4f1eb;
-  color: #1c1c1c;
+.chart-section {
+  background: #ffffff;
+  padding: 120px 0;
 }
 
-h1, h2 {
-  margin: 0;
+.chart-title {
+  max-width: 1100px;
+  margin: 0 auto 60px auto;
+  padding-left: 40px;
+  font-size: 2rem;
 }
 
-section {
-  padding: 100px 10%;
-}
-
-/* HERO */
-.hero {
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  background: #111;
-  color: white;
-}
-
-.hero-overlay {
-  max-width: 700px;
-}
-
-.hero h1 {
-  font-size: 64px;
-  margin-bottom: 20px;
-}
-
-.hero p {
-  font-size: 20px;
-  line-height: 1.5;
-}
-
-/* INTRO */
-.intro {
-  max-width: 700px;
-  line-height: 1.7;
-  font-size: 18px;
-}
-
-/* CHART SECTIONS */
-.chart-section h2 {
-  margin-bottom: 50px;
-  font-size: 32px;
-}
-
-/* TWO COLUMN LAYOUT */
 .chart-container {
-  display: grid;
-  grid-template-columns: 55% 45%;
-  gap: 40px;
+  display: flex;
+  max-width: 1100px;
+  margin: auto;
 }
 
-/* STICKY CHART */
 .chart-sticky {
   position: sticky;
   top: 120px;
-  height: 500px;
+  height: 75vh;
+  width: 55%;
 }
 
-.chart-sticky svg {
+#chart {
   width: 100%;
   height: 100%;
 }
 
-/* SCROLL TEXT */
 .chart-text {
-  display: flex;
-  flex-direction: column;
-  gap: 150px;
+  width: 45%;
+  padding-left: 60px;
 }
 
-.chart-text div {
+.chart-step {
+  margin-bottom: 450px;
   opacity: 0.3;
   transition: opacity 0.4s ease;
 }
 
-.chart-text div.active {
+.chart-step.active {
   opacity: 1;
 }
 
-/* DATA NOTE */
 .data-note {
-  margin-top: 60px;
-  font-size: 14px;
+  font-size: 0.9rem;
+  margin-top: 40px;
   opacity: 0.7;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
 }
