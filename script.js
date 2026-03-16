@@ -1,30 +1,30 @@
-// ==============================
-// REUSABLE ANIMATED LINE CHART
-// ==============================
+// ==========================
+// GRAPH FUNCTION (Reusable)
+// ==========================
 
-function createChart(config) {
+function createAnimatedChart(svgId, csvFile, valueKey, color, stepClass) {
 
-  d3.csv(config.csv).then(data => {
+  d3.csv(csvFile).then(data => {
 
     data.forEach(d => {
       d.year = +d.year;
-      d.value = +d[config.valueKey];
+      d[valueKey] = +d[valueKey];
     });
 
-    const container = document.querySelector(config.svg).parentElement;
+    const container = document.querySelector(svgId).parentElement;
     const width = container.clientWidth;
     const height = container.clientHeight;
 
-    const svg = d3.select(config.svg)
+    const svg = d3.select(svgId)
       .attr("width", width)
       .attr("height", height);
 
     const x = d3.scaleLinear()
       .domain(d3.extent(data, d => d.year))
-      .range([70, width - 40]);
+      .range([60, width - 40]);
 
     const y = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.value) * 1.1])
+      .domain([0, d3.max(data, d => d[valueKey]) * 1.1])
       .range([height - 60, 40]);
 
     svg.append("g")
@@ -32,29 +32,29 @@ function createChart(config) {
       .call(d3.axisBottom(x).tickFormat(d3.format("d")));
 
     svg.append("g")
-      .attr("transform", "translate(70,0)")
+      .attr("transform", "translate(60,0)")
       .call(d3.axisLeft(y));
 
     const line = d3.line()
       .x(d => x(d.year))
-      .y(d => y(d.value));
+      .y(d => y(d[valueKey]));
 
     const path = svg.append("path")
       .datum([])
       .attr("fill", "none")
-      .attr("stroke", config.color)
+      .attr("stroke", color)
       .attr("stroke-width", 4);
 
     const scroller = scrollama();
 
     scroller
       .setup({
-        step: config.stepClass,
+        step: stepClass,
         offset: 0.6
       })
       .onStepEnter(response => {
 
-        d3.selectAll(config.stepClass).classed("active", false);
+        d3.selectAll(stepClass).classed("active", false);
         d3.select(response.element).classed("active", true);
 
         let visibleData;
@@ -79,26 +79,28 @@ function createChart(config) {
   });
 }
 
-// ==============================
-// MORTALITY CHART
-// ==============================
 
-createChart({
-  svg: "#mortalityChart",
-  csv: "mortality.csv",
-  valueKey: "deaths",
-  color: "#c62828",
-  stepClass: ".mortality-step"
-});
+// ==========================
+// MORTALITY GRAPH
+// ==========================
 
-// ==============================
-// POPULATION CHART
-// ==============================
+createAnimatedChart(
+  "#mortalityChart",
+  "mortality.csv",
+  "deaths",
+  "#c62828",
+  ".mortality-step"
+);
 
-createChart({
-  svg: "#populationChart",
-  csv: "population.csv",
-  valueKey: "population",
-  color: "#ef6c00",
-  stepClass: ".population-step"
-});
+
+// ==========================
+// POPULATION GRAPH
+// ==========================
+
+createAnimatedChart(
+  "#populationChart",
+  "population.csv",
+  "population",
+  "#ef6c00",
+  ".population-step"
+);
