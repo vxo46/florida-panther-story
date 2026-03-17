@@ -14,7 +14,7 @@ d3.json("florida.geo.json").then(data => {
 
   projection.fitSize([mapWidth, mapHeight], data);
 
-  const base = mapSvg.append("path")
+  mapSvg.append("path")
     .datum(data)
     .attr("d", pathMap)
     .attr("fill", "#ddd")
@@ -113,7 +113,7 @@ d3.csv("population.csv").then(data => {
       path
         .datum(visibleData)
         .transition()
-        .duration(600)
+        .duration(800)
         .attr("d", line);
     });
 });
