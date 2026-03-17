@@ -100,15 +100,10 @@ d3.csv("population.csv").then(data => {
 
       let visibleData;
 
-      if (response.index === 0) {
-        visibleData = data.slice(0,1);
-      } else if (response.index === 1) {
-        visibleData = data.slice(0,2);
-      } else if (response.index === 2) {
-        visibleData = data.slice(0,4);
-      } else {
-        visibleData = data;
-      }
+      if (response.index === 0) visibleData = data.slice(0,1);
+      else if (response.index === 1) visibleData = data.slice(0,2);
+      else if (response.index === 2) visibleData = data.slice(0,4);
+      else visibleData = data;
 
       path
         .datum(visibleData)
