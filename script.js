@@ -117,10 +117,3 @@ d3.csv("population.csv").then(data => {
         .attr("d", line);
     });
 });
-
-      if (response.index === 3) {
-        heat.transition().duration(800).attr("r", 90);
-      }
-
-    });
-});
